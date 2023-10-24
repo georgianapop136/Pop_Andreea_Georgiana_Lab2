@@ -22,8 +22,15 @@ namespace Pop_Andreea_Georgiana_Lab2
         // GET: Books
         public async Task<IActionResult> Index()
         {
-              return _context.Books != null ? 
-                          View(await _context.Books.ToListAsync()) :
+            var books = _context.Books.ToList();
+            foreach (var book in books)
+            {
+                var bookAuthor = await _context.Authors.FindAsync(book.AuthorID);
+                book.Author = bookAuthor;
+            }
+
+            return _context.Books != null ? 
+                          View(books) :
                           Problem("Entity set 'LibraryContext.Books'  is null.");
         }
 
@@ -46,9 +53,14 @@ namespace Pop_Andreea_Georgiana_Lab2
         }
 
         // GET: Books/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var availableAuthors = _context.Authors;
+            Book book = new Book();
+
+            book.AvailableAuthors = availableAuthors.ToList();
+
+            return View(book);
         }
 
         // POST: Books/Create
@@ -56,15 +68,15 @@ namespace Pop_Andreea_Georgiana_Lab2
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,Author,Price")] Book book)
+        public async Task<IActionResult> Create([Bind("ID,Title,AuthorID,Price")] Book book)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(book);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(book);
+            var authorToSave = await _context.Authors.FindAsync(book.AuthorID);
+            book.Author = authorToSave;
+            book.Orders = new List<Order>(); ;
+
+            _context.Add(book);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index)); // Redirect to the "Books" index view           
         }
 
         // GET: Books/Edit/5

@@ -15,7 +15,8 @@ namespace Pop_Andreea_Georgiana_Lab2.Controllers
 
         public IActionResult Index()
         {
-            return View();
+
+        return View();
         }
 
         public IActionResult Privacy()

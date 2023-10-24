@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pop_Andreea_Georgiana_Lab2.Data;
 
@@ -11,9 +12,11 @@ using Pop_Andreea_Georgiana_Lab2.Data;
 namespace Pop_Andreea_Georgiana_Lab2.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20231023160811_SecondCreate")]
+    partial class SecondCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +33,6 @@ namespace Pop_Andreea_Georgiana_Lab2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int?>("BookID")
-                        .HasColumnType("int");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -43,9 +43,7 @@ namespace Pop_Andreea_Georgiana_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("BookID");
-
-                    b.ToTable("Author", (string)null);
+                    b.ToTable("Author");
                 });
 
             modelBuilder.Entity("Pop_Andreea_Georgiana_Lab2.Models.Book", b =>
@@ -123,13 +121,6 @@ namespace Pop_Andreea_Georgiana_Lab2.Migrations
                     b.ToTable("Order", (string)null);
                 });
 
-            modelBuilder.Entity("Pop_Andreea_Georgiana_Lab2.Models.Author", b =>
-                {
-                    b.HasOne("Pop_Andreea_Georgiana_Lab2.Models.Book", null)
-                        .WithMany("AvailableAuthors")
-                        .HasForeignKey("BookID");
-                });
-
             modelBuilder.Entity("Pop_Andreea_Georgiana_Lab2.Models.Book", b =>
                 {
                     b.HasOne("Pop_Andreea_Georgiana_Lab2.Models.Author", "Author")
@@ -162,8 +153,6 @@ namespace Pop_Andreea_Georgiana_Lab2.Migrations
 
             modelBuilder.Entity("Pop_Andreea_Georgiana_Lab2.Models.Book", b =>
                 {
-                    b.Navigation("AvailableAuthors");
-
                     b.Navigation("Orders");
                 });
 

@@ -16,24 +16,31 @@ namespace Pop_Andreea_Georgiana_Lab2.Data
                 {
                     return; // BD a fost creata anterior
                 }
+
+                var author1 = new Author { ID  = 1, FirstName = "Mihail", LastName = "Sadoveanu" };
+                var author2 = new Author { ID = 2, FirstName = "George", LastName = "Calinescu" };
+                var author3 = new Author { ID = 3, FirstName = "Mircea", LastName = "Eliade" };
                 context.Books.AddRange(
                 new Book
                 {
                     Title = "Baltagul",
-                    Author = "Mihail Sadoveanu",
-                    Price=Decimal.Parse("22")},
+                    Author = author1,
+                    Price =Decimal.Parse("22")
+                },
                
                 new Book
                 {
                     Title = "Enigma Otiliei",
-                    Author = "George Calinescu",
-                    Price=Decimal.Parse("18")},
+                    Author = author2,
+                    Price=Decimal.Parse("18")
+                },
                
                 new Book
                 {
                     Title = "Maytrei",
-                    Author = "Mircea Eliade",
-                    Price=Decimal.Parse("27")}
+                    Author = author3,
+                    Price=Decimal.Parse("27")
+                }
                
                 );
 
