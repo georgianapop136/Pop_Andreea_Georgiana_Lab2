@@ -12,8 +12,8 @@ using Pop_Andreea_Georgiana_Lab2.Data;
 namespace Pop_Andreea_Georgiana_Lab2.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20231023213909_Dropdown")]
-    partial class Dropdown
+    [Migration("20231024213634_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
