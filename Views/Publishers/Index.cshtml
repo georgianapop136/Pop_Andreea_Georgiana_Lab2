@@ -35,7 +35,7 @@
                     @{
                         foreach (var book in item.PublishedBooks)
                         {
-                            @book.Book.ID @: @book.Book.Title <br />
+                            @book.Book.Title <br />
                         }
                     }
                 </td>
@@ -69,16 +69,38 @@
             }
             <tr class="@selectedRow">
                 <td>
-                    @Html.ActionLink("Select", "Index", new { bookID = item.ID })
+                    <a asp-action="Index" asp-route-bookID="@item.ID">Select</a>
                 </td>
                 <td>
                     @item.Title
                 </td>
                 <td>
-                    @item.Author
+                    @item.Author.FullName
                 </td>
                 <td>
                     @item.Price
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@if (Model.Orders != null && ViewData["BookID"] != null)
+{
+    <h3>Customers who ordered the selected book</h3>
+    <table class="table">
+        <tr>
+            <th>Customer Name</th>
+            <th>Order Date</th>
+        </tr>
+        @foreach (var order in Model.Orders.Where(o => o.BookID == (int)ViewData["BookID"]))
+        {
+            <tr>
+                <td>
+                    @order.Customer.Name
+                </td>
+                <td>
+                    @order.OrderDate
                 </td>
             </tr>
         }

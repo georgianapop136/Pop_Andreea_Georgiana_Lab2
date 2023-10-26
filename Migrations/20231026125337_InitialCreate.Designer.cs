@@ -12,8 +12,8 @@ using Pop_Andreea_Georgiana_Lab2.Data;
 namespace Pop_Andreea_Georgiana_Lab2.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20231025223346_ExtendedModel")]
-    partial class ExtendedModel
+    [Migration("20231026125337_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

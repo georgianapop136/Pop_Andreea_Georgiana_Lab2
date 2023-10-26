@@ -27,13 +27,16 @@ namespace Pop_Andreea_Georgiana_Lab2.Controllers
         {
             var viewModel = new PublisherIndexData();
             viewModel.Publishers = await _context.Publishers
-            .Include(i => i.PublishedBooks)
-            .ThenInclude(i => i.Book)
-            .ThenInclude(i => i.Orders)
-            .ThenInclude(i => i.Customer)
-            .AsNoTracking()
-            .OrderBy(i => i.PublisherName)
-            .ToListAsync();
+                .Include(p => p.PublishedBooks)
+                    .ThenInclude(pb => pb.Book)
+                    .ThenInclude(b => b.Author)
+                .Include(i => i.PublishedBooks)
+                    .ThenInclude(i => i.Book)
+                    .ThenInclude(i => i.Orders)
+                    .ThenInclude(i => i.Customer)
+                .AsNoTracking()
+                .OrderBy(i => i.PublisherName)
+                .ToListAsync();
             if (id != null)
             {
                 ViewData["PublisherID"] = id.Value;
@@ -43,7 +46,7 @@ namespace Pop_Andreea_Georgiana_Lab2.Controllers
             }
             if (bookID != null)
             {
-                ViewData["BoookID"] = bookID.Value;
+                ViewData["BookID"] = bookID.Value;
                 viewModel.Orders = viewModel.Books.Where(
                 x => x.ID == bookID).Single().Orders;
             }
