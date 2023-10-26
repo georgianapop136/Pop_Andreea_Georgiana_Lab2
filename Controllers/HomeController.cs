@@ -1,17 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pop_Andreea_Georgiana_Lab2.Models;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Pop_Andreea_Georgiana_Lab2.Data;
+using Pop_Andreea_Georgiana_Lab2.Models.LibraryViewModels;
 
 namespace Pop_Andreea_Georgiana_Lab2.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        // private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        // public HomeController(ILogger<HomeController> logger)
+        // {
+        // _logger = logger;
+        //}
+        private readonly LibraryContext _context;
+        public HomeController(LibraryContext context)
         {
-            _logger = logger;
+            _context = context;
         }
+
+        public async Task<ActionResult> Statistics()
+        {
+            IQueryable<OrderGroup> data =
+            from order in _context.Orders
+            group order by order.OrderDate into dateGroup
+            select new OrderGroup()
+            {
+                OrderDate = dateGroup.Key,
+                BookCount = dateGroup.Count()
+            };
+            return View(await data.AsNoTracking().ToListAsync());
+        }
+
 
         public IActionResult Index()
         {

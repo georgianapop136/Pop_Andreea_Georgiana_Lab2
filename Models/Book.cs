@@ -15,11 +15,14 @@ namespace Pop_Andreea_Georgiana_Lab2.Models
         [ForeignKey("AuthorID")]
         public Author Author { get; set; } // Proprietate de navigare
 
+        [Column(TypeName = "decimal(6, 2)")]
+
         public decimal Price { get; set; }
 
         public List<Author> AvailableAuthors { get; set; }
 
         public ICollection<Order> Orders { get; set; }
+        public ICollection<PublishedBook> PublishedBooks { get; set; }
 
     }
 }
