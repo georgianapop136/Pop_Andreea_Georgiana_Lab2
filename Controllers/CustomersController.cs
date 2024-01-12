@@ -32,9 +32,7 @@ namespace Pop_Andreea_Georgiana_Lab2.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                var customers = JsonConvert.DeserializeObject<List<Customer>>(await
-               response.Content.
-                ReadAsStringAsync());
+                var customers = JsonConvert.DeserializeObject<List<Customer>>(await response.Content.ReadAsStringAsync());
                 return View(customers);
             }
             return NotFound();

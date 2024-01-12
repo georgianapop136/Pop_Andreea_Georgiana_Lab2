@@ -46,19 +46,26 @@ namespace Pop_Andreea_Georgiana_Lab2.Data
 
                 context.Books.AddRange(book1, book2, book3);
 
+                var city1 = new City { CityName = "Cluj-Napoca" };
+                var city2 = new City { CityName = "Oradea" };
+
+                context.Cities.AddRange(city1);
+
 
                 var customer1 = new Customer
                 {
                     Name = "Popescu Marcela",
                     Adress = "Str. Plopilor, nr. 24",
-                    BirthDate = DateTime.Parse("1979-09-01")
+                    BirthDate = DateTime.Parse("1979-09-01"),
+                    City = city1
                 };
 
                 var customer2 = new Customer
                 {
                     Name = "Mihailescu Cornel",
                     Adress = "Str. Bucuresti, nr.45,ap. 2",
-                    BirthDate = DateTime.Parse("1969 - 07 - 08")
+                    BirthDate = DateTime.Parse("1969 - 07 - 08"),
+                    City = city2
                 };
 
                 context.Customers.AddRange(customer1, customer2);
