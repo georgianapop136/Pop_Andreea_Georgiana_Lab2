@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,11 @@ using Pop_Andreea_Georgiana_Lab2.Models.LibraryViewModels;
 
 
 namespace Pop_Andreea_Georgiana_Lab2.Controllers
-{
+{ 
+
+    [Authorize(Policy = "OnlySales")]
+
+
     public class PublishersController : Controller
     {
         private readonly LibraryContext _context;

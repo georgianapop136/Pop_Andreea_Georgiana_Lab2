@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pop_Andreea_Georgiana_Lab2.Data;
 using Pop_Andreea_Georgiana_Lab2.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Pop_Andreea_Georgiana_Lab2
+
+namespace Pop_Andreea_Georgiana_Lab2.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class BooksController : Controller
     {
         private readonly LibraryContext _context;
@@ -20,6 +23,8 @@ namespace Pop_Andreea_Georgiana_Lab2
         }
 
         // GET: Books
+        [AllowAnonymous]
+
         public async Task<IActionResult> Index(
           string sortOrder,
           string currentFilter,
@@ -76,6 +81,8 @@ namespace Pop_Andreea_Georgiana_Lab2
         }
 
         // GET: Books/Details/5
+        [AllowAnonymous]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Books == null)
